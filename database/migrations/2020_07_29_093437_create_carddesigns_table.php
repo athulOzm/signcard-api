@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCarddesignsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('carddesigns', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('cardtype_id');
+            $table->foreign('cardtype_id')->references('id')->on('cardtypes')->onDelete('cascade');
+            $table->string('title');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('carddesigns');
+    }
+}
