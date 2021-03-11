@@ -25,8 +25,24 @@ use App\Http\Middleware\Cors;
 // Route::get('/data', function (){
 //     return response()->json('loaded');
 // });
+//admin.
+Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
+    
+    Route::post('/makeurl', 'CardController@makeUrl');
+    Route::post('/addcard', 'CardController@add');
+    Route::get('/fetchaddcard', 'CardController@fetchAddCard');
+    Route::get('/fetchcards', 'CardController@all');
+    Route::get("/fetchtype/{card}", 'CardController@type');
+    Route::post('/card/upddp', 'CardController@upddp');
 
-
+    Route::get("/fetchcontact/{card}", 'ContactController@contact');
+    Route::post('/card/updcontact', 'ContactController@updcontact');
+    
+    Route::get("/fetchsocialmedia/{card}", 'SocialmediaController@socialmedia');
+    Route::post('/card/updsocialmedia', 'SocialmediaController@updsocialmedia');
+    
+    
+});
 
 
 
@@ -57,21 +73,3 @@ Route::middleware([Cors::class])->group(function () {
 
 
 
-//admin.
-Route::middleware([Cors::class, 'auth:userapi'])->group(function () {
-    
-    Route::post('/makeurl', 'CardController@makeUrl');
-    Route::post('/addcard', 'CardController@add');
-    Route::get('/fetchaddcard', 'CardController@fetchAddCard');
-    Route::get('/fetchcards', 'CardController@all');
-    Route::get("/fetchtype/{card}", 'CardController@type');
-    Route::post('/card/upddp', 'CardController@upddp');
-
-    Route::get("/fetchcontact/{card}", 'ContactController@contact');
-    Route::post('/card/updcontact', 'ContactController@updcontact');
-    
-    Route::get("/fetchsocialmedia/{card}", 'SocialmediaController@socialmedia');
-    Route::post('/card/updsocialmedia', 'SocialmediaController@updsocialmedia');
-    
-    
-});

@@ -85,9 +85,16 @@ class CardController extends Controller
     }
 
 
-    public function show(Card $card){
+    public function show($card){
 
-        return response($card, 200);
+        if($res = Card::where('domain', $card)->first()):
+            $res->socialmedia;
+            $res->design;
+            $res->contact;
+            return response($res, 200);
+        else: 
+            return response(['msg' => 'Card not found'], 404);
+        endif;
     }
 
 
